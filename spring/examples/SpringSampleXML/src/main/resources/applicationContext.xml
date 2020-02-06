@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- This is the ApplicationContext, the BeanFactory -->
+	
+	<bean name="hibernate" class="com.revature.repository.HeroRepositoryHibernate" />
+	
+	<!-- This additional repository breaks byType or constructor autowiring -->
+	<!-- You should configure byName instead -->
+	<!-- The setter needs to be called setMongo() "so what matters it he bean name"
+	not the field -->
+	<bean name="mongo" class="com.revature.repository.HeroRepositoryMongo" />
+	
+	<!-- Manual Wiring -->
+	
+	<!-- Setter Injection -->
+	<!-- heroRepository on "ref" it's not the field name of the class.
+	 It is the bean name defined above. -->
+	<!-- bean name="heroService" class="com.revature.service.HeroServiceAlpha">
+		<property name="heroRepository" ref="heroRepository" />
+	</bean> -->
+	
+	<!-- Constructor Injection -->
+	<!-- <bean name="heroService" class="com.revature.service.HeroServiceAlpha">
+		<constructor-arg index="0" ref="heroRepository" />
+	</bean> -->
+	
+	<!-- Autowiring -->
+	<!-- "Spring, please solve the dependencies of HeroServiceAlpha
+	following the IS-A rule of its fields. -->
+	<!-- byType will apply setter injection. -->
+	<!--  bean name="heroService" 
+		class="com.revature.service.HeroServiceAlpha" autowire="byType" /> -->
+	
+	<!-- As the type says, this applies constructor injection -->
+	<!--  bean name="heroService" 
+		class="com.revature.service.HeroServiceAlpha" autowire="constructor" />-->
+	
+	<!-- byName will still do setter injection.
+	The setter name needs to match the bean name that you want to inject
+	E.G. setHibernate, or, setMongo -->
+	<bean name="heroService" 
+		class="com.revature.service.HeroServiceAlpha" autowire="byName" />
+	
+	<!-- Register properties file in the application context -->
+	<context:property-placeholder location="hero.properties" />
+	
+	<!-- Injecting Literal [int, String, etc] Values (Still setter injection) -->
+	<bean name="specialHero" class="com.revature.model.Hero" scope="prototype">
+		<property name="id" value="123" />
+		<property name="name" value="${name}" />
+		<property name="superPower" value="${superPower}" />
+		<property name="hasCape" value="true" />
+	</bean>
+</beans>

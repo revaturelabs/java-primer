@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<!-- PokemonType Entity -> @Entity -->
+	<!-- table -> @Table(name="") -->
+	<class name="com.revature.model.PokemonType" table="POKEMON_TYPE">
+		<id name="id" type="int" column="PT_ID">
+			<!-- @GeneratedValue with no @SequenceGenerator -->
+			<generator class="native" />
+		</id>
+		<property name="element" type="string" column="PT_ELEMENT"/>
+	</class>
+</hibernate-mapping>

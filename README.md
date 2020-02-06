@@ -1,2 +1,10 @@
-# java-primer
-This repository includes practical examples for Java, SQL, Hibernate and Spring.
+# Notes and Examples
+* [Java](java)
+* [SQL](sql)
+* [Hibernate](hibernate)
+* [Spring](spring)
+
+# Useful Links
+* [Git Cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
+* [Tutorials Point](https://www.tutorialspoint.com/)
+* [Microservices](https://martinfowler.com/articles/microservices.html)

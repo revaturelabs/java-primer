@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+	<!-- timeToIdle resets every time the objects gets used. -->
+	<!-- timeToLive is the object's total lifespan (no matter how many times
+	timeToIdle resets, in our case, the lifespan will be 10 minutes) -->
+	<!-- timeToIdle < timeToLive -->
+	<defaultCache maxElementsInMemory="100" eternal="false"
+		timeToIdleSeconds="180" timeToLiveSeconds="600"
+		overflowToDisk="false" />
+</ehcache>

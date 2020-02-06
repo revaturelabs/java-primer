@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- JDBC Connection parameters -->
+		<property name="hibernate.connection.username">HIBERNATE_TEST</property>
+		<property name="hibernate.connection.password">p4ssw0rd</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+
+		<!-- Enable Auto Commit (Documentation doesn't recommend to do this, we need to create transactions)-->
+		<!-- We want Spring to manage transactions for us programmatically (in the near future) -->
+		<!--  <property name="hibernate.connection.autocommit">true</property>-->
+
+		<!-- Depending on the Database engine, switch dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+
+		<!-- Show SQL Output -->
+		<property name="hibernate.show_sql">true</property>
+
+		<!-- Auto generate/update schema -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- For enterprise applications we use "validate". 
+		You don't want Hibernate to generate the schema in a production environment -->
+		<!--  <property name="hibernate.hbm2ddl.auto">validate</property> -->
+
+		<!-- You don't want to use "create" for ddl.auto, this will drop the tables
+		and recreate them everytime you run the application. (Good for testing) -->
+		<!--  <property name="hibernate.hbm2ddl.auto">create</property> -->
+		
+		<!-- Ehcache (L2) Configuration -->
+		<!-- Configuration location -->
+		<property name="net.sf.ehcache.configurationResourceName">ehcache.xml</property>
+		<!-- Factory class to manage objects -->
+        <property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
+        <!-- Enable L2 Cache -->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <!-- Enable Query Cache as well -->
+        <property name="hibernate.cache.use_query_cache">true</property>
+		
+		<!-- Annotation Mapping -->
+		<mapping class="com.revature.model.Pokemon" />
+		<mapping class="com.revature.model.Trainer" />
+		
+		<!-- Configuration Mapping -->
+		<mapping resource="pokemon-type.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>
